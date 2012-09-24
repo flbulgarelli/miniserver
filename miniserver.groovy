@@ -1,12 +1,12 @@
-@Grab('org.mortbay.jetty:jetty-embedded:6.1.14')
 import org.mortbay.jetty.*
 import org.mortbay.jetty.servlet.*
 import groovy.servlet.*
 import javax.servlet.http.*
 import javax.servlet.*
 
-def serv(port, react) {
- new Server(port).with {
+@Grab('org.mortbay.jetty:jetty-embedded:6.1.14')
+def serve(react) {
+ new Server(9090).with {
    new Context(it, '/').with {
      addServlet(new ServletHolder(new HttpServlet() {
        void service(ServletRequest req, ServletResponse res) {
@@ -22,4 +22,8 @@ def serv(port, react) {
    }     
    it
  }
+}
+
+HttpServletRequest.metaClass {
+  getParams = { -> delegate.parameterMap.collectEntries { k, v -> [k, v[0]] } }
 }

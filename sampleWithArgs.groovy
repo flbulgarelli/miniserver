@@ -1,6 +1,6 @@
 load miniserver.groovy
 
 s = serve({
-  req -> [[], 'hello', 200]
+  req -> [[], "hello ${req.params.name}!", 200]
 })
 s.start()
