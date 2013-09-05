@@ -15,11 +15,7 @@ class MiniServer {
 
   private final jetty
  
-  MiniServer() {
-    this(9090)   
-  }
-
-  MiniServer(port) {
+  MiniServer(port = 9090) {
     this.jetty = new Server(port)
   }
 
@@ -49,12 +45,12 @@ class MiniServer {
    }
   }
 
-  static start(react) {
-    start('/': react)
+  static start(port, react) {
+    start(port, ['/': react])
   }
 
-  static start(Map routes) {
-    new MiniServer().with {
+  static start(port, Map routes) {
+    new MiniServer(port).with {
        routes.each { path, react ->
          serve(path, react) 
        }
